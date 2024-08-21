@@ -4,11 +4,11 @@ Twitch Live Chat Translator
 
 ## Requirements
 
-* (7TV)[https://7tv.app/] and (Tampermonkey)[https://www.tampermonkey.net/] browser extensions
+* [7TV](https://7tv.app/) and [Tampermonkey](https://www.tampermonkey.net/) browser extensions
 
 ## Installation
 
-* Copy the contents of your selected `.js` file from this repository
+* Copy the contents of the `.js` file from this repository
 * Open Tampermonkey -> Create a new script...
 * Paste the copied code
 * File -> Save (or Ctrl+S)
