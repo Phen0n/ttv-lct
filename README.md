@@ -17,3 +17,17 @@ Twitch Live Chat Translator
 
 * Requires 7TV to function (for now)
 * Only translates cyrillic text
+* Does not work on clips or videos, only on live chat
+
+## To-Do
+
+* Support for clips, videos
+* Remove 7TV dependency
+* Optimize API calls for larger workloads
+* Change to officially supported translation service
+* Support for more languages
+
+## Changelog
+
+### 1.0
+* Released
