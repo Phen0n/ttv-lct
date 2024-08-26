@@ -13,6 +13,26 @@ Twitch Live Chat Translator
 * Paste the copied code
 * File -> Save (or Ctrl+S)
 
+## Usage
+
+The script will automatically wait for 7TV elements to load before starting.  
+Translation and formatting takes place without user input.
+
+Multiple commands are exposed to the console through `unsafeWindow`:
+
+* setColor('color')
+    * Can take any [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color#syntax) as input.
+    * Default value: `#007F00`
+    * `setColor('#007F00')`
+* setMargins(['left','right'])
+    * Can take any allowed [CSS length unit](https://developer.mozilla.org/en-US/docs/Web/CSS/length#syntax) or `auto` as input values.
+    * Default value: `['10px', '10px']`
+    * `setMargins(['10px','10px'])`
+* setStyle('style')
+    * Takes any [font-style value](https://developer.mozilla.org/en-US/docs/Web/CSS/font-style#values) as input
+    * Default value: `italic`
+    * `setStyle('italic')`
+
 ## Limitations
 
 * Requires 7TV to function (for now)
@@ -29,5 +49,13 @@ Twitch Live Chat Translator
 
 ## Changelog
 
+#### 1.0.1
+
+* Added `@grant` values: `GM_setValue` and `GM_getValue`.
+    * Now saves style values within Tampermonkey
+* Added console commands to change style of translated text
+    * Settings persist between sessions
+
 ### 1.0
+
 * Released
