@@ -14,7 +14,7 @@ Twitch Live Chat Translator
 
 ## Usage
 
-The script will automatically wait for 7TV elements to load before starting.  
+The script will automatically wait for required elements to load before starting.  
 Translation and formatting takes place without user input.
 
 Multiple commands are exposed to the console through `unsafeWindow`:
