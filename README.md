@@ -4,8 +4,7 @@ Twitch Live Chat Translator
 
 ## Requirements
 
-* [7TV](https://7tv.app/) and [Tampermonkey](https://www.tampermonkey.net/) browser extensions
-
+* Tampermonkey](https://www.tampermonkey.net/) browser extension
 ## Installation
 
 * Copy the contents of the `.js` file from this repository
@@ -20,34 +19,44 @@ Translation and formatting takes place without user input.
 
 Multiple commands are exposed to the console through `unsafeWindow`:
 
-* setColor('color')
+* `setColor('color')`
     * Can take any [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color#syntax) as input.
     * Default value: `#007F00`
     * `setColor('#007F00')`
-* setMargins(['left','right'])
+* `setMargins(['left','right'])`
     * Can take any allowed [CSS length unit](https://developer.mozilla.org/en-US/docs/Web/CSS/length#syntax) or `auto` as input values.
-    * Default value: `['10px', '10px']`
-    * `setMargins(['10px','10px'])`
-* setStyle('style')
+    * Default value: `['5px', '5px']`
+    * `setMargins(['5px','5px'])`
+* `setStyle('style')`
     * Takes any [font-style value](https://developer.mozilla.org/en-US/docs/Web/CSS/font-style#values) as input
     * Default value: `italic`
     * `setStyle('italic')`
+* `setTimer(milliseconds)`
+    * If the timer goes by without any new messages being detected, reset the chat observer.
+    * Takes integers as input.
+    * Default value: `20000`
+    * `setTimer(20000)`
 
 ## Limitations
 
-* Requires 7TV to function (for now)
 * Only translates cyrillic text
-* Does not work on clips or videos, only on live chat
 
 ## To-Do
 
-* Support for clips, videos
-* Remove 7TV dependency
+* ~~Support for clips, videos~~
+* ~~Remove 7TV dependency~~
 * Optimize API calls for larger workloads
 * Change to officially supported translation service
 * Support for more languages
 
 ## Changelog
+
+### 1.1
+
+* Added support for videos
+* Removed 7TV dependency
+* Now resets observed element if no changes are detected in a given time
+    * Length customized via `setTimer`
 
 #### 1.0.1
 
