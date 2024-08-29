@@ -4,7 +4,7 @@ Twitch Live Chat Translator
 
 ## Requirements
 
-* Tampermonkey](https://www.tampermonkey.net/) browser extension
+* [Tampermonkey](https://www.tampermonkey.net/) browser extension
 ## Installation
 
 * Copy the contents of the `.js` file from this repository
@@ -20,22 +20,24 @@ Translation and formatting takes place without user input.
 Multiple commands are exposed to the console through `unsafeWindow`:
 
 * `setColor('color')`
-    * Can take any [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color#syntax) as input.
+    * Input value(s): Any [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color#syntax)
     * Default value: `#007F00`
-    * `setColor('#007F00')`
+    * Example usage: `setColor('#007F00')`
 * `setMargins(['left','right'])`
-    * Can take any allowed [CSS length unit](https://developer.mozilla.org/en-US/docs/Web/CSS/length#syntax) or `auto` as input values.
+    * Input value(s): Any [CSS length unit](https://developer.mozilla.org/en-US/docs/Web/CSS/length#syntax) or `auto`
     * Default value: `['5px', '5px']`
-    * `setMargins(['5px','5px'])`
+    * Example usage: `setMargins(['5px','5px'])`
+      
 * `setStyle('style')`
-    * Takes any [font-style value](https://developer.mozilla.org/en-US/docs/Web/CSS/font-style#values) as input
+    * Input value(s): Any [CSS font-style value](https://developer.mozilla.org/en-US/docs/Web/CSS/font-style#values)
     * Default value: `italic`
-    * `setStyle('italic')`
+    * Example usage: `setStyle('italic')`
+      
 * `setTimer(milliseconds)`
     * If the timer goes by without any new messages being detected, reset the chat observer.
-    * Takes integers as input.
+    * Input value(s): any positive integer
     * Default value: `20000`
-    * `setTimer(20000)`
+    * Example usage: `setTimer(20000)`
 
 ## Limitations
 
