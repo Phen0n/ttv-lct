@@ -48,10 +48,20 @@ Multiple commands are exposed to the console through `unsafeWindow`:
 * ~~Support for clips, videos~~
 * ~~Remove 7TV dependency~~
 * Optimize API calls for larger workloads
-* Change to officially supported translation service
+* ~~Change to officially supported translation service~~
 * Support for more languages
 
 ## Changelog
+
+### 1.2
+
+* Swapped translation endpoint
+    * Old: unofficial Google Translate API
+    * New: [lingva-translate](https://github.com/TheDavidDelta/lingva-translate)
+* Added more metadata tags:
+    * `run-at`
+    * `homepageURL`
+    * `supportURL`
 
 ### 1.1
 
