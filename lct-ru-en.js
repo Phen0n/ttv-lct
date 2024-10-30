@@ -1,10 +1,13 @@
 // ==UserScript==
 // @name	    Twitch Live Chat Translator (Russian to English)
 // @namespace	http://tampermonkey.net/
-// @version	    1.1
+// @version	    1.2
 // @description	Automatically translates Russian(cyrillic) messages in Twitch chat to English.
 // @author	    Phenon
 // @match	    https://www.twitch.tv/*
+// @run-at		document-end
+// @homepageURL https://github.com/Phen0n/ttv-lct
+// @supportURL  https://github.com/Phen0n/ttv-lct/issues
 // @grant	    GM_setValue
 // @grant	    GM_getValue
 // ==/UserScript==
@@ -19,6 +22,7 @@
     GM_setValue('style', GM_getValue('style', 'italic'));
 
     GM_setValue('msTimeout', GM_getValue('msTimeout', 20000));
+	GM_setValue('msBatchtime', GM_getValue('msBatchtime', 1000));
 
     //console functions
     unsafeWindow.setColor = function(cl) {
@@ -38,6 +42,10 @@
         console.log(`Changed timeout: ${GM_getValue('msTimeout')}ms -> ${to}ms`);
         GM_setValue('msTimeout', to);
     }
+	unsafeWindow.setBatchtime = function(bt) {
+		console.log(`Changed batch time: ${GM_getValue('msBatchtime')}ms -> ${bt}ms`);
+		GM_setValue('msBatchtime', bt);
+	}
 
     function getFirst(queryList) {
         for (let query of queryList) {
@@ -46,12 +54,25 @@
         return null;
     }
 
-    //Unofficial Google Translate API
-    async function translateText(text) {
-        const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ru&tl=en&dt=t&q=${encodeURIComponent(text)}`);
-        const result = await response.json();
-        return result[0][0][0];
-    }
+	// translation via Lingva by thedaviddelta
+	// https://github.com/thedaviddelta/lingva-translate
+	async function translate(text, index = 0) {
+		const endpoints = ['https://lingva.ml/api/v1/ru/en/', 'https://lingva.lunar.icu/api/v1/ru/en/'];
+		if (index >= endpoints.length) return "Translation failed for all endpoints.";
+		try {
+			const response = await fetch(endpoints[index] + encodeURIComponent(text));
+			if (!response.ok) return translate(text, index + 1); // Try next endpoint
+			const data = await response.json();
+			let translation = data.translation;
+			if (translation.startsWith('"') && translation.endsWith('"')) {
+				translation = translation.slice(1, -1);
+			}
+			return translation;
+		} catch (error) {
+			console.error(`Error with endpoint ${endpoints[index]}:`, error);
+			return translate(text, index + 1); // Try next endpoint
+		}
+	}
 
     const chatboxQueries = new Map([
         ['main.seventv-chat-list','span.text-token'],							//live, 7tv
@@ -60,6 +81,7 @@
         ['div.video-chat__message-list-wrapper', 'span.text-fragment']			//video, default
     ]);
 
+	// main functionality
     const observerConfig = { childList: true, subtree: true };
     const chatObserver = new MutationObserver(async (mutations) => {
         resetTimeout();
@@ -68,17 +90,15 @@
                 if (node.nodeType === Node.ELEMENT_NODE) {
                     for (let textNode of node.querySelectorAll(getFirst(chatboxQueries.values()))) {
                         const messageText = textNode.innerText;
-                        //skip if text isn't Russian or is translated span
-                        if (!/[\u0400-\u04FF]/.test(messageText) || textNode.querySelector('.translated-text')) continue;
-                        const translatedText = await translateText(messageText);
+                        //skip if text isn't Cyrillic
+                        if (!/[\u0400-\u04FF]/.test(messageText)) continue;
+                        const translatedText = await translate(messageText);
 
                         const translatedSpan = document.createElement('span');
                         translatedSpan.style.color = GM_getValue('color');
                         translatedSpan.style.marginLeft = GM_getValue('margins')[0];
                         translatedSpan.style.marginRight = GM_getValue('margins')[1];
                         translatedSpan.style.fontStyle = GM_getValue('style');
-
-                        translatedSpan.className = 'translated-text';
                         translatedSpan.innerText = `[${translatedText}]`;
 
                         textNode.appendChild(translatedSpan);
