@@ -2,6 +2,9 @@
 
 Twitch Live Chat Translator
 
+![image](https://github.com/user-attachments/assets/065ad98d-a274-47c5-9378-faff7f16b3d7)
+
+
 ## Requirements
 
 * [Tampermonkey](https://www.tampermonkey.net/) browser extension
