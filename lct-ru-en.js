@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name	    Twitch Live Chat Translator (Russian to English)
+// @license		AGPLv3
 // @namespace	http://tampermonkey.net/
 // @version	    1.2
 // @description	Automatically translates Russian(cyrillic) messages in Twitch chat to English.
